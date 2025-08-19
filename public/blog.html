@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Side Menu */
+        .side-menu {
+            width: 220px;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            position: fixed;
+            height: 100%;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+        }
+
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .side-menu ul li {
+            margin: 1rem 0;
+        }
+
+        .side-menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.7rem 1rem;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-menu ul li a:hover,
+        .side-menu ul li a.active {
+            background: #00e5ff;
+            color: #000;
+            border-radius: 5px;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 220px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: #00e5ff;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .blog-card h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #00e5ff;
+        }
+
+        .blog-card p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #00e5ff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #00e5ff;
+            transition: 0.3s;
+        }
+
+        .read-more:hover {
+            background: #00e5ff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="side-menu">
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="blog.html" class="active">📝 Blog</a></li>
+            <li><a href="about.html">ℹ️ About Us</a></li>
+            <li><a href="contact.html">📧 Contact Us</a></li>
+            <li><a href="view-projects.html">📂 View Project</a></li>
+            <li><a href="project-request.html">💡 Ask for Project</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h1>My Blog</h1>
+            <p>Latest updates, project insights & tech articles</p>
+        </header>
+
+        <section class="blog-container">
+            <!-- Blog Post 1 -->
+            <div class="blog-card">
+                <img src="https://via.placeholder.com/400x200" alt="Blog Image">
+                <h2>How I Built a Real-Time IoT Project</h2>
+                <p>Discover the steps, tools, and strategies I used to build an IoT-based embedded project that controls devices from anywhere.</p>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+
+            <!-- Blog Post 2 -->
+            <div class="blog-card">
+                <img src="https://via.placeholder.com/400x200" alt="Blog Image">
+                <h2>Web Development Tips for Beginners</h2>
+                <p>Here are some essential tips for getting started with web development and building futuristic websites.</p>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div class="blog-card">
+                <img src="https://via.placeholder.com/400x200" alt="Blog Image">
+                <h2>ESP32 + Cloud: End-to-End Project</h2>
+                <p>Learn how to connect ESP32 with AWS IoT for a secure and scalable IoT application.</p>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
