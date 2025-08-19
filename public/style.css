@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Exo+2:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Exo 2', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+}
+
+.main-title, h1, h2, h3 {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Animated Background */
+.background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #000428);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Left Side Menu */
+.side-menu {
+  position: fixed;
+  top: 0; left: 0;
+  height: 100%;
+  width: 200px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 50px;
+}
+
+.side-menu ul {
+  list-style: none;
+}
+
+.side-menu li {
+  margin: 20px 0;
+}
+
+.side-menu a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.side-menu a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: cyan;
+  transform: scale(1.05);
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 2rem;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.sub-title {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #ccc;
+  animation: fadeIn 3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .side-menu {
+    width: 150px;
+  }
+  .main-content {
+    margin-left: 150px;
+  }
+}
+.about-text {
+  max-width: 700px;
+  margin-top: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ccc;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+.contact-card {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid cyan;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px cyan;
+}
+
+.contact-card p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+
+.contact-card strong {
+  color: cyan;
+}
+
