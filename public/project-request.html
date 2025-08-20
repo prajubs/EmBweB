@@ -120,8 +120,12 @@
         <div class="form-container">
             <h1>Request a Project</h1>
             <form id="projectForm">
+                <label for="Name"> Name</label>
+                <input type="text" id="Name" name="name" placeholder="Enter your Name" required>
+                <label for="mailid">Mail ID</label>
+                <input type="text" id="mailID" name="mailid" placeholder="example@gmail.com" required>
                 <label for="projectName">Project Name</label>
-                <input type="text" id="projectName" name="name" placeholder="Enter project name" required>
+                <input type="text" id="projectName" name="projectname" placeholder="Enter project name" required>
 
                 <label for="description">Project Description</label>
                 <textarea id="description" name="message" rows="4" placeholder="Describe your project" required></textarea>
@@ -139,43 +143,46 @@
     </div>
 
     <script>
-    document.getElementById('projectForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = {
-            name: e.target.name.value,
-            message: e.target.message.value,
-            budget: e.target.budget.value,
-            refLink: e.target.refLink.value
-        };
-
-        const status = document.getElementById("statusMsg");
-        status.style.color = "#555";
-        status.innerText = "Sending...";
-
-        try {
-            const res = await fetch('/send-project', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            const data = await res.json();
-            if (data.success) {
-                status.style.color = "green";
-                status.innerText = "✅ Request sent successfully!";
-                e.target.reset();
-            } else {
+        document.getElementById('projectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+        
+            const formData = {
+                name: e.target.name.value,
+                mailid: e.target.mailid.value,       // ✅ added
+                projectname: e.target.projectname.value, // ✅ added
+                message: e.target.message.value,
+                budget: e.target.budget.value,
+                refLink: e.target.refLink.value
+            };
+        
+            const status = document.getElementById("statusMsg");
+            status.style.color = "#555";
+            status.innerText = "Sending...";
+        
+            try {
+                const res = await fetch('/send-project', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+        
+                const data = await res.json();
+                if (data.success) {
+                    status.style.color = "green";
+                    status.innerText = "✅ Request sent successfully!";
+                    e.target.reset();
+                } else {
+                    status.style.color = "red";
+                    status.innerText = "❌ Failed: " + (data.error || "Something went wrong");
+                }
+            } catch (error) {
+                console.error(error);
                 status.style.color = "red";
-                status.innerText = "❌ Failed to send request.";
+                status.innerText = "❌ Error sending request.";
             }
-        } catch (error) {
-            console.error(error);
-            status.style.color = "red";
-            status.innerText = "❌ Error sending request.";
-        }
-    });
-    </script>
+        });
+        </script>
+        
 
 </body>
 </html>
