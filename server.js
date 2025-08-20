@@ -3,6 +3,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,14 +11,14 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('public')); // frontend (HTML, CSS, JS) goes here
+app.use(express.static(path.join(__dirname, 'public'))); // Serve frontend files
 
 // Nodemailer transporter
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL_USER, // your Gmail
-        pass: process.env.EMAIL_PASS, // App Password
+        user: process.env.EMAIL_USER,  // your Gmail
+        pass: process.env.EMAIL_PASS,  // your App Password
     }
 });
 
@@ -26,36 +27,42 @@ transporter.verify((err, success) => {
     if (err) {
         console.error('❌ Error with email transporter:', err);
     } else {
-        console.log('✅ Server is ready to send emails');
+        console.log('✅ Mail server ready to send emails');
     }
+});
+
+// Root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Endpoint to receive project request
 app.post('/send-project', (req, res) => {
-    const { name, email, message, budget, refLink } = req.body;
+    const { name, mailid, projectname, message, budget, refLink } = req.body;
 
-    if (!email) {
-        return res.status(400).json({ success: false, error: "Sender email is required!" });
+    if (!name || !mailid || !projectname) {
+        return res.json({ success: false, error: "Missing required fields" });
     }
 
     const mailOptions = {
-        from: `"${name}" <${process.env.EMAIL_USER}>`, // show project sender name
-        to: process.env.EMAIL_USER,                   // your email to receive
-        replyTo: email,                               // reply goes to sender
-        subject: `New Project Request from ${name}`,
+        from: `"${name}" <${process.env.EMAIL_USER}>`, // sender name (but from your email)
+        to: process.env.EMAIL_USER,                   // you receive it
+        replyTo: mailid,                              // if you hit reply → goes to sender
+        subject: `📩 New Project Request: ${name}`,
         text: `
-        Project Name: ${name}
-        Sender Email: ${email}
-        Description: ${message}
-        Budget: ${budget}
-        Reference Link: ${refLink}
+Name: ${name}
+Mail ID: ${mailid}
+Project Name: ${projectname}
+Description: ${message}
+Budget: ${budget}
+Reference: ${refLink}
         `
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error('❌ Error sending email:', error);
-            res.json({ success: false });
+            res.json({ success: false, error: error.message });
         } else {
             console.log('✅ Email sent: ' + info.response);
             res.json({ success: true });
@@ -65,5 +72,5 @@ app.post('/send-project', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
